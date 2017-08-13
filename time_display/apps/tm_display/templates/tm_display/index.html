@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time Display</title>
+     {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'tm_display/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    <!-- Put the static files in the static folder inside your app.  Django collects files within all static folders and puts them within a single folder -->
+</head>
+<body>
+    <p>The current data and time:</p>
+    <div class="date">
+        <h1>
+            {{time}}
+        </h1>
+
+    </div>
+</body>
+</html>
