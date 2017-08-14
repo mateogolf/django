@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Random Word Generator</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'random_word/css/main.css' %}" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
     <p>Random Word (attempt # {{request.session.attempts}})</p>
