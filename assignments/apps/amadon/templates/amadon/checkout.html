@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Amadon</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+    <h1>Thank you for your business!</h1>
+    <p>We charged your credit card for ${{request.session.price}}</p>
+    <br>
+    <p>You have ordered {{request.session.items}} items so far and spent ${{request.session.total}} with Amadon.com</p>
+
+    <a href="/amadon/reset">Reset</a> |
+    <a href="/amadon/goBack">Go Back</a>
+</body>
+
+</html>
