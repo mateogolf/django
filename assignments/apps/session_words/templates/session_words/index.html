@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Random Word Generator</title>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <form action="/session_words/add" method="POST">
+            {% csrf_token %}
+            <h1>Add a New Word</h1>
+            <input type="text" name="word">
+            {% if request.session.noWord%}
+                <p style="color: red">Please enter a word</p>
+            {% endif %}
+            <p>Choose color
+                {% if request.session.noColor%}
+                    <p style="color: red">"Select a Color"</p>
+                {% endif %}
+            </p>
+            <table>
+                <tr>
+                    <td><input type="radio" id="red" name="color" value="red"></td>
+                    <td><label for="red">Red</label></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" id="green" name="color" value="green"></td>
+                    <td><label for="green">Green</label></td>
+                </tr>
+                    <td><input type="radio" id="blue" name="color" value="blue"></td>
+                    <td><label for="blue">Blue</label></td>
+                </tr>
+            </table>
+            <p><input type="checkbox" name="big" value=True> show in BIG fonts!</p>
+            <input type="submit" value="Add to Session">
+        </form>
+        <div class="log">
+            <a href="/session_words/clear">Clear Session</a>
+            {% for word in request.session.log %}
+                {% if word.big %}
+                    <!-- <p><span style="color:{{word.color}}" class="BIG">{{word.word}}</span> added on {{word.time}}</p> -->
+                    <p><span class="{{word.color}} BIG">{{word.word}}</span> added on {{word.time}}</p>
+                {% else %}
+                    <p><span class="{{word.color}}">{{word.word}}</span> added on {{word.time}}</p>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </body>
+</html>
