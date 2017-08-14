@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dojo Survey Index</title>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'survey/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <h1>Submitted Info</h1>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Your Name:</td>
+                    <td>{{request.session.name}}</td>
+                </tr>
+                <tr>
+                    <td>Dojo Location:</td>
+                    <td>{{request.session.location}}</td>
+                </tr>
+                <tr>
+                    <td>Favorite Language:</td>
+                    <td>{{request.session.fav_lang}}</td>
+                </tr>
+                <tr>
+                    <td>Comments:</td>
+                    <td>{{request.session.comments}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/return">Go back</a>
+    </body>
+</html>

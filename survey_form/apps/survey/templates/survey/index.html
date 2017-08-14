@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dojo Survey Result</title>
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'survey/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+
+    </head>
+    <body>
+        <form action="/process" method="post">
+            {% csrf_token %}
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Your Name:</td>
+                        <td>
+                            <input type="text" name="name" value="{{request.session.name}}">
+                        </td>
+                        <td>
+                            {% if request.session.noName is defined %}
+                                <p style="color:red">{{request.session.noName}}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dojo Location:</td>
+                        <td>
+                            <!--Select for dropdown  -->
+                            <select name="location" name="location">
+                                <option value="Seattle">Seattle</option>
+                                <option value="Washington DC">Washington DC</option>
+                                <option value="Burbank">LA - Burbank</option>
+                                <option value="San Jose">San Jose</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Favorite Language:</td>
+                        <td>
+                            <!--Select for dropdown  -->
+                            <select name="favorite" id="fav_lang">
+                                <option value="Python">Python</option>
+                                <option value="JavaScript">JavaScript</option>
+                                <option value="Swift">Swift</option>
+                                <option value="Java">Java</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Comments(optional)</td>
+                        <td>
+                            {% if request.session.noComments is defined %}
+                                    <p style="color:red">{{request.session.noComments}}</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input name="comments" id="comments" value="{{request.session.comments}}">
+            <input type="submit" value="Button">
+        </form>
+    </body>
+</html>
