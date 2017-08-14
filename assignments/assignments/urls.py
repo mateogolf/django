@@ -20,5 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^random_word/', include('apps.random_word.urls')),
     url(r'^session_words/', include('apps.session_words.urls')),
+    url(r'^dojo_ninjas/', include('apps.dojo_ninjas.urls')),
+    url(r'^book_authors/', include('apps.book_authors.urls')),
     url(r'^amadon/', include('apps.amadon.urls'))
 ]
