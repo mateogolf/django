@@ -19,8 +19,8 @@ class Book(models.Model):
     desc = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(User, related_name="liked_users")
-    uploaded_by = models.ForeignKey(User, related_name="uploaders")
+    liked_users = models.ManyToManyField(User, related_name="liked_books")
+    uploader = models.ForeignKey(User, related_name="uploaded_books")
     def __repr__(self):
         return "<Book object: {}: {}>".format(self.name, self.desc)
 
