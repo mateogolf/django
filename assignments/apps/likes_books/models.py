@@ -11,6 +11,8 @@ class User(models.Model):
     email = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    def __repr__(self):
+        return "<Author object: {} {},email: {}>".format(self.first_name, self.first_name, self.email)
 
 class Book(models.Model):
     name = models.CharField(max_length=255)
@@ -19,7 +21,8 @@ class Book(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     likes = models.ManyToManyField(User, related_name="liked_users")
     uploaded_by = models.ForeignKey(User, related_name="uploaders")
-
+    def __repr__(self):
+        return "<Book object: {}: {}>".format(self.name, self.desc)
 
 # class Like(models.Model):
 #     user = models.ForeignKey(User, related_name="liked_users")
