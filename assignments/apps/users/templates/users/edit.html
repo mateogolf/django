@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% load static %}
+        <!-- The line above tells Django to be ready to listen for static files -->
+        <link rel="stylesheet" href="{% static 'users/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+        <title>Users</title>
+    </head>
+    <body>
+        {% if new %}
+            <h1>Add a new user</h1>
+            <form action='/users/create' method='POST'>
+                {% csrf_token %}
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email">
+                <input type="submit" value="Create">
+            </form>
+        {% else %}
+            <h1>Edit User {{ id }}</h1>
+            <form action="/users/{{id}}" method='POST'>
+                {% csrf_token %}
+                <label for="first_name">First Name:</label>
+                <input type="text" name="first_name" id="first_name" value="{{first_name}}">
+                <label for="last_name">Last Name:</label>
+                <input type="text" name="last_name" id="last_name" value="{{last_name}}">
+                <label for="email">Email:</label>
+                <input type="text" name="email" id="email" value="{{email}}">
+                <input type="submit" value="Update">
+            </form>
+        {% endif %}
+    </body>
+</html>
