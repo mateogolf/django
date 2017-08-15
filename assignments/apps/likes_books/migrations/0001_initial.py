@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -14,17 +15,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Author',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('first_name', models.CharField(max_length=255)),
-                ('last_name', models.CharField(max_length=255)),
-                ('email', models.CharField(max_length=255)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-            ],
-        ),
-        migrations.CreateModel(
             name='Book',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -34,9 +24,25 @@ class Migration(migrations.Migration):
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],
         ),
+        migrations.CreateModel(
+            name='User',
+            fields=[
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('first_name', models.CharField(max_length=255)),
+                ('last_name', models.CharField(max_length=255)),
+                ('email', models.CharField(max_length=255)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now=True)),
+            ],
+        ),
         migrations.AddField(
-            model_name='author',
-            name='books',
-            field=models.ManyToManyField(related_name='authors', to='book_authors.Book'),
+            model_name='book',
+            name='likes',
+            field=models.ManyToManyField(related_name='liked_users', to='likes_books.User'),
+        ),
+        migrations.AddField(
+            model_name='book',
+            name='uploaded_by',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='uploaders', to='likes_books.User'),
         ),
     ]

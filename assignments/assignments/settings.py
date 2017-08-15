@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'apps.amadon',
     'apps.dojo_ninjas',
     'apps.book_authors',
+    'apps.likes_books',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
