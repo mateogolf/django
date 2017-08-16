@@ -47,7 +47,7 @@ def show(request,user_id):
                    'last_name': user.last_name,
                    'email': user.email,
                    'created_at': user.created_at
-                   }
+        }
         return render(request,'users/view.html',context)
 
 def edit(request, user_id):

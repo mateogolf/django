@@ -12,8 +12,6 @@ def validateEmail(email):
 # Create your models here.
 class UserManager(models.Manager):
     def basic_validator(self, postData):
-        print postData['email']
-        print EMAIL_REGEX.match(postData['email'])
         errors = {}
         if len(postData['first_name']) < 1:
             errors["first_name"] = "Please enter users"
