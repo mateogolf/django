@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add a student to all bootcamp courses</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <h1>Are you sure you want to delete the following course?</h1>
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td>{{name}}</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>{{description}}</td>
+            </tr>
+        </table>
+        <div class="choose">
+            <a href="/courses/return">No</a>
+            <a href="/courses/destroy">Yes! I want to delete this</a>
+        </div>
+    </body>
+</html>

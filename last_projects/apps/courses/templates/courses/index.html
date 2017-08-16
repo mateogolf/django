@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add a student to all bootcamp courses</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <h2>Add a new course</h2>
+        <form action="/courses/create" method="POST">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td><input type="text" name="name"></td>
+                    <td>
+                        <!-- if errors["name"], then print it here -->
+                        {% if request.session.errorName is defined %}
+                            <p style="color:red;">request.session.errorName</p>
+                        {% end if %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><textarea name="desc" id="desc" >
+                        {% if request.session.desc is defined %}
+                            <p style="color:red;">request.session.desc</p>
+                        {% end if %}</textarea></td>
+                    <td>
+                        <!-- if errors["name"], then print it here -->
+                        {% if request.session.errorName is defined %}
+                        <p style="color:red;">request.session.errorName</p>
+                        {% end if %}
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="Add">
+        </form>
+        <div class="log">
+            <h2>Courses</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Description</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- for loop here for printing the log of courses -->
+                    
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
