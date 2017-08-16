@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Add a student to all bootcamp courses</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+    </head>
+    <body>
+        <h1>Add a new comment for Course:</h1>
+        <div class="log">
+            <h3>{{name}}</h3>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Comments</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- for loop here for printing the log of courses -->
+                    {%for comment in request.session.comments%}
+                        <tr>
+                            <td>{{comment.content}}</td>
+                            <td>
+                                <a href="/courses/{{id}}/comments/{{comment.id}}/destroy">remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <form action="/courses/{{id}}/comments/create" method="POST">
+                    {% csrf_token %}
+                    <tr>
+                        <td>
+                            <textarea name="comment" id="comment" cols="30" rows="10">{{request.session.comment}}</textarea>
+                            {% if request.session.errorcomment != None %}
+                            <p style="color:red;">{{request.session.errorcomment}}</p>
+                            {% endif %}
+                        </td>
+                        <td><input type="submit" value="Add Comment"></td>
+                    </tr>
+                    </form>
+                </tbody>
+            </table>
+            <a href="/courses/">Go Back</a>
+        </div>
+    </body>
+</html>

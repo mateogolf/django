@@ -9,28 +9,32 @@
     <body>
         <h2>Add a new course</h2>
         <form action="/courses/create" method="POST">
+            {% csrf_token %}
             <table>
                 <tr>
                     <td>Name:</td>
-                    <td><input type="text" name="name"></td>
+                    <td>
+                        {% if request.session.name != None %} 
+                            <input type="text" name="name" value="{{request.session.name}}">
+                        {%else%}
+                            <input type="text" name="name">
+                        {% endif %} 
+                    </td>
                     <td>
                         <!-- if errors["name"], then print it here -->
-                        {% if request.session.errorName is defined %}
-                            <p style="color:red;">request.session.errorName</p>
-                        {% end if %}
+                        {% if request.session.errorname != None %}
+                            <p style="color:red;">{{request.session.errorname}}</p>
+                        {% endif %}
                     </td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td><textarea name="desc" id="desc" >
-                        {% if request.session.desc is defined %}
-                            <p style="color:red;">request.session.desc</p>
-                        {% end if %}</textarea></td>
+                    <td><textarea name="desc" id="desc" cols="30" rows="10">{{request.session.desc}}</textarea></td>
                     <td>
                         <!-- if errors["name"], then print it here -->
-                        {% if request.session.errorName is defined %}
-                        <p style="color:red;">request.session.errorName</p>
-                        {% end if %}
+                        {% if request.session.errordesc != None %}
+                        <p style="color:red;">{{request.session.errordesc}}</p>
+                        {% endif %}
                     </td>
                 </tr>
             </table>
@@ -49,7 +53,17 @@
                 </thead>
                 <tbody>
                     <!-- for loop here for printing the log of courses -->
-                    
+                    {%for course in request.session.courses%}
+                        <tr>
+                            <td>{{course.name}}</td>
+                            <td>{{course.desc.content}}</td>
+                            <td>{{course.created_at}}</td>
+                            <td>
+                                <a href="/courses/{{course.id}}">remove</a>
+                                <a href="/courses/{{course.id}}/comments">Comments</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

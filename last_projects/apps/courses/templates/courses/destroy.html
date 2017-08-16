@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Add a student to all bootcamp courses</title>
+        <title>Delete Course?</title>
         {% load static %}
         <link rel="stylesheet" href="{% static 'session_words/css/main.css' %}" media="screen" title="no title" charset="utf-8">
     </head>
@@ -19,8 +19,8 @@
             </tr>
         </table>
         <div class="choose">
-            <a href="/courses/return">No</a>
-            <a href="/courses/destroy">Yes! I want to delete this</a>
+            <a href="/courses">No</a>
+            <a href="/courses/{{id}}/destroy">Yes! I want to delete this</a>
         </div>
     </body>
 </html>
