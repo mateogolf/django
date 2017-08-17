@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 import re
+import bcrypt
 from datetime import datetime
 from django.db import models
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
-
-
-def validateEmail(email):
-        if len(email) > 7:
-            if re.match("^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$", email) != None:
-                return True
-        return False
-
-
 
 class UserManager(models.Manager):
     def basic_validator(self, postData):
@@ -30,6 +22,10 @@ class UserManager(models.Manager):
         #Email
         if not EMAIL_REGEX.match(postData['email']) and len(postData['email']) > 7:
             errors["email"] = "Please enter a valid email"
+        else:
+            findUsers = User.objects.filter(email=postData['email'])
+            if len(findUsers) != 0:
+                errors["email"] = "Email is already in the system"
         #If email in table, return error
         if len(postData['password']) < 8:
             errors["password"] = "Password min. 8 chars"
@@ -44,8 +40,6 @@ class UserManager(models.Manager):
                 errors["birthday"] = "Not a valid birthday"
         except ValueError:
             errors["birthday"] = "Input Valid Date"
-        
-        print errors
         return errors
 
     def login_validator(self, postData):
@@ -57,7 +51,11 @@ class UserManager(models.Manager):
             findUsers = User.objects.filter(email=postData['email'])
             if len(findUsers) == 0:
                 errors["email"] = "Email not registered"
-            # else:
+            else:
+                #Check Password
+                # user = User.objects.get(email=postData['email'])
+                if not bcrypt.checkpw(postData['password'].encode("utf8"), findUsers[0].password.encode("utf8")):
+                    errors["password"] = "Password min. 8 chars"
             #     if postData['password'] != findUsers[0].password:
             #         errors["password"] = "Incorrect Password"
         return errors

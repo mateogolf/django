@@ -4,7 +4,6 @@ from django.contrib import messages
 from django.shortcuts import render, HttpResponse, redirect
 from .models import *
 import bcrypt
-SALT = 5
 # password = b"super secret password"
 # Create your views here.
 def index(request):
@@ -18,13 +17,10 @@ def login(request):
         if len(errors):
             for tag, error in errors.iteritems():
                 messages.error(request, error, extra_tags=tag)
-                print tag + ": " + error
             return render(request, 'login_reg/index.html', context)
         else:
             #Check Password
             user = User.objects.get(email=request.POST['email'])
-            print user.password
-            print bcrypt.checkpw(request.POST['password'].encode("utf8"), user.password.encode("utf8"))
             if not bcrypt.checkpw(request.POST['password'].encode("utf8"), user.password.encode("utf8")):
                 messages.error(request, "Password doesn't match email")
                 return render(request, 'login_reg/index.html', context)
@@ -47,31 +43,28 @@ def register(request):
         if len(errors):
             for tag, error in errors.iteritems():
                 messages.error(request, error, extra_tags=tag)
-                print tag + ": " + error
             return render(request, 'login_reg/index.html', context)
         else:
             #Check other emails
-            matchedEmails = User.objects.filter(email=request.POST['email'])
-            if len(matchedEmails) != 0:
-                messages.error(request, "Email is already in the system")
-                return render(request, 'login_reg/index.html',context)
-            else:
-                hash1 = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
-                newUser = User(
-                    first_name=request.POST['first_name'], 
-                    last_name=request.POST['last_name'], 
-                    email=request.POST['email'],
-                    birthday=request.POST['birthday'],
-                    password=hash1)
-                print newUser
-                newUser.save()
-                request.session['id'] = User.objects.get(email=request.POST['email']).id
-                return redirect('/success')
+            # matchedEmails = User.objects.filter(email=request.POST['email'])
+            # if len(matchedEmails) != 0:
+            #     messages.error(request, "Email is already in the system")
+            #     return render(request, 'login_reg/index.html',context)
+            # else:
+            hash1 = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt())
+            newUser = User(
+                first_name=request.POST['first_name'], 
+                last_name=request.POST['last_name'], 
+                email=request.POST['email'],
+                birthday=request.POST['birthday'],
+                password=hash1)
+            newUser.save()
+            request.session['id'] = User.objects.get(email=request.POST['email']).id
+            return redirect('/success')
     else:
         return redirect('/')
 
 def success(request):
-    # print request.session['email']
     user = User.objects.get(id=request.session['id'])
     context = {
         'id': user.id,
