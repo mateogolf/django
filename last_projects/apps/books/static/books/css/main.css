@@ -1,0 +1,74 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+header{
+    /* height: 70px; */
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+header * {
+    margin: 10px;
+}
+body>section *{
+    margin-bottom: 10px;
+}
+body>section>h4{
+    font-weight: normal;
+}
+.wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+.wrapper>*{
+    margin: 5px;
+}
+
+section {
+    width: 50%;
+}
+aside {
+    width: 45%;
+}
+
+
+label{
+    font-weight: bold;
+    margin-right: 10px;
+}
+ul>li{
+    list-style: none;
+    /* margin-left: 20px; */
+    margin: 5px 15px;
+}
+
+.message *{
+    color: red;
+}
+.book_review{
+    border-top: 1px solid black;
+}
+.rev_footer{
+    display: flex;
+    justify-content: space-between;
+}
+.rating{
+    display: inline-block;
+    width: 120px;
+}
+img{
+    width: 20px;
+    height: 20px;
+}
+li#other_books{
+    border: 1px solid black;
+    height: 150px;
+    scroll-behavior: auto;
+    margin: 5px 25px;
+}
+
+li#other_books *{
+    margin: 5px;
+}

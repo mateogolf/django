@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books Home</title>
+    {% load static %}
+    <!-- The line above tells Django to be ready to listen for static files -->
+    <link rel="stylesheet" href="{% static 'books/css/main.css' %}" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+    <header>
+        <div class="links">
+            <a href="/books/add">Add Book and Review</a>
+            <a href="/">Logout</a>
+        </div>
+        <h1>Welcome, {{alias}}!</h1>
+    </header>
+    <div class="wrapper">
+        <section>
+            <h3>Recent Book Reviews:</h3>
+            <ul>
+                {%for review in reviews%}
+                <li class="review">
+                    <h5><a href="/books/{{review.book.id}}">{{review.book.title}}</a></h5>
+                    <ul>
+                        <li>Rating: <div class="rating">
+                            {%for i in rating %}
+                                {%if review.rating > forloop.counter0 %}
+                                    {% load static %}
+                                    <img src="{% static 'books/star.gif' %}" alt="star">
+                                {%else%}
+                                    {% load static %}
+                                    <img src="{% static 'books/blankstar.png' %}" alt="empty">
+                                {%endif%}
+                            {%endfor%}
+                            </div>
+                        </li>
+                        <li>
+                            <a href="/users/{{review.user.id}}">{{review.user.alias}}</a> says: <em>{{review.content}}</em>
+                        </li>
+                        <li>Posted on {{review.created_at|date:"F d, Y"}}</li>
+                    </ul>
+                </li>
+                {%endfor%}
+            </ul>
+        </section>
+        <aside>
+            <h3>Other Book with Reviews:</h3>
+            <ul>
+                <li id="other_books">
+                    {%for book in other_books%}
+                        <p><a href="/books/{{book.id}}">{{book.title}}</a></p>
+                    {% endfor %}
+                </li>
+            </ul>
+        </aside>
+    </div>
+</body>
+</html>
