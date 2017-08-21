@@ -3,5 +3,8 @@ from . import views          # This line is new!
 
 urlpatterns = [
     url(r'^$', views.index),
-    url(r'^new$', views.register)
+    url(r'^all.json$', views.all_json),
+    url(r'^all.html$', views.all_html),
+    url(r'^find$', views.find),
+    url(r'^create$', views.create),
 ]

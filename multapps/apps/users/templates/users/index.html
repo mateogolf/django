@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <title>User Ajax Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+
+</head>
+<body>
+    <h1>Demo 1 - JSON VS HTML</h2>
+    <button id='button_json' class='btn btn-primary'>Fetch HttpResponse from user/login/all.json</button>
+    <button id='button_html' class='btn btn-primary'>Fetch HttpResponse from user/login/all.html</button>
+    <div id='placeholder1' style='margin-top:35px; border:1px solid silver; width:750px; padding:10px;'>Placeholder for the Ajax Response</div>
+    <script>
+        $('#button_json').click(function () {
+            $.ajax({
+                url: '/user_login/all.json', /* Where should this go? */
+                success: function (serverResponse) {  /* What code should we run when the server responds? */
+                    console.log("Received this from server:", serverResponse)
+                    console.log("Now, I can use the serverResponse to manipulate the DOM")
+                    $('#placeholder1').html(JSON.stringify(serverResponse))
+                }
+            });
+        });
+        $('#button_html').click(function () {
+            $.ajax({
+                url: '/user_login/all.html', /* Where should this go? */
+                success: function (serverResponse) {  /* What code should we run when the server responds? */
+                    console.log("Received this from server:", serverResponse)
+                    $('#placeholder1').html(serverResponse)
+                }
+            });
+        });
+    </script>
+</body>
+</html>

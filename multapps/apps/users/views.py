@@ -2,11 +2,23 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, HttpResponse, redirect
-# the index function is called when root is visited
+from django.contrib import messages
+from models import *
+from django.core import serializers
+import json
 def index(request):
-    response = "placeholder to later display all users"
-    return HttpResponse(response)
-
-def register(request):
-    response = "placeholder for users to create a new user record"
-    return HttpResponse(response)
+    return render(request, 'users/index.html')
+# Create your views here.
+def all_json(request):
+    users = Users.objects.all()
+    print users
+    return HttpResponse(serializers.serialize("json", users), content_type='application/json')
+def all_html(request):
+    return render(request, 'users/all.html', { "users": Users.objects.all() })
+def find(request):
+    return render(request, 'users/all.html',
+        { "users":    Users.objects.filter(first_name__startswith=request.POST['first_name_starts_with']) }
+    )
+def create(request):
+    Users.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], email_address=request.POST['email_address'])
+    return render(request, 'users/all.html',{ "users": Users.objects.order_by("-id") })
