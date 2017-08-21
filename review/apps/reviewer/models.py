@@ -17,17 +17,17 @@ class User(models.Model):
         return "<User object: {}>".format(self.alias)
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    name = models.CharField(max_length=255)
+    # last_name = models.CharField(max_length=255)
+    # created_at = models.DateTimeField(auto_now_add=True)
+    # updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):
-        return "<Author object: {} {},email: {}>".format(self.first_name, self.last_name, self.email)
+        return "<Author object: {} {},email: {}>".format(self.first_name, self.last_name)
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, related_name="books")
-    # reviewers = models.ManyToManyField(User, related_name="reviewed_books")
+    # uploader = models.ForeignKey(User, related_name="uploaded_books")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __repr__(self):

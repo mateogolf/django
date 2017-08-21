@@ -19,7 +19,6 @@ class UserManager(models.Manager):
             errors["last_name"] = "Please enter last name"
         if not EMAIL_REGEX.match(postData['email']):
             errors["email"] = "Please enter a valid email"
-        print errors
         return errors
 
 class User(models.Model):
