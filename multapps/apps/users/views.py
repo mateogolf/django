@@ -21,5 +21,5 @@ def find(request):
         { "users":    Users.objects.filter(first_name__startswith=request.POST['first_name_starts_with']) }
     )
 def create(request):
-    Users.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'], email_address=request.POST['email_address'])
+    Users.objects.create(first_name=request.POST['first_name'], last_name=request.POST['last_name'],email=request.POST['email'],age=request.POST['age'])
     return render(request, 'users/all.html',{ "users": Users.objects.order_by("-id") })
