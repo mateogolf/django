@@ -14,7 +14,8 @@ def all_json(request):
     print users
     return HttpResponse(serializers.serialize("json", users), content_type='application/json')
 def all_html(request):
-    return render(request, 'users/all.html', { "users": Users.objects.all() })
+    context = {"users": Users.objects.all()}
+    return render(request, 'users/all.html', context)
 def find(request):
     return render(request, 'users/all.html',
         { "users":    Users.objects.filter(first_name__startswith=request.POST['first_name_starts_with']) }
