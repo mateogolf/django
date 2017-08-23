@@ -33,7 +33,7 @@ def create(request):
         errors = User.objects.basic_validator(request.POST)
         if len(errors):
             for tag, error in errors.iteritems():
-                # messages.error(request, error, extra_tags=tag)
+                messages.error(request, error, extra_tags=tag)
                 print tag + ": " + error
             return redirect('/users/new')
         else:
